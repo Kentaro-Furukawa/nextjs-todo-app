@@ -1,15 +1,18 @@
-export default function TodoRow({todoItem, deleteTodoItem}) {
+export default function TodoRow({todoItem, completeTodoItem, deleteTodoItem}) {
 
-  function onClickDelete(targetID) {
-    console.log(targetID)
+  function handleComplete(targetID) {
+    completeTodoItem(targetID)
+  }
+
+  function handleDelete(targetID) {
     deleteTodoItem(targetID)
   }
 
   return (
-    <li key={todoItem.id}>
+    <li>
       { todoItem.isCompleted ? (<s>{todoItem.task}</s>) : (<span>{todoItem.task}</span>)}
-      <button>Complete</button>
-      <button onClick={()=>onClickDelete(todoItem.id)}>Delete</button>
+      <button onClick={()=>handleComplete(todoItem.id)}>Complete</button>
+      <button onClick={()=>handleDelete(todoItem.id)}>Delete</button>
     </li>
   )
 }

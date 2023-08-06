@@ -8,10 +8,21 @@ import TodoTable from '@/components/todoTable'
 
 export default function Home() {
 
-  const [todoItems, setTodoItems] = useState([])
+  const initialTodos = []
+  const [todoItems, setTodoItems] = useState(initialTodos)
 
   function addTodoItem(newTodoItem) {
     setTodoItems([...todoItems, newTodoItem])
+  }
+
+  function completeTodoItem(targetTodoId) {
+    const localTodos = [...todoItems]
+    localTodos.forEach((todo) => {
+      if (todo.id === targetTodoId) {
+        todo.isCompleted = !todo.isCompleted
+      }
+    })
+    setTodoItems(localTodos)
   }
 
   function deleteTodoItem(targetTodoId) {
@@ -21,8 +32,8 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <Hero></Hero>
-      <InputBar todoItems={ todoItems } addTodoItem={ addTodoItem }></InputBar>
-      <TodoTable todoItems= { todoItems } deleteTodoItem={deleteTodoItem}></TodoTable>
+      <InputBar todoItems={todoItems} addTodoItem={addTodoItem}></InputBar>
+      <TodoTable todoItems={todoItems} completeTodoItem={completeTodoItem} deleteTodoItem={deleteTodoItem}></TodoTable>
     </main>
   )
 }
